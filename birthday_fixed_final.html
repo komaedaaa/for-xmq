@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>给你的小信笺</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "STKaiti", "微软雅黑", sans-serif;
+      background: url('bg_visual.png') center/cover no-repeat;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .bubble {
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid #b3d9ff;
+      border-radius: 18px;
+      padding: 18px 24px;
+      max-width: 80%;
+      box-shadow: 2px 6px 12px rgba(0,0,0,0.1);
+      font-size: 20px;
+      color: #333;
+      text-align: left;
+      min-height: 120px;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .bubble::after {
+      content: '';
+      position: absolute;
+      left: 25px;
+      bottom: -15px;
+      border: 8px solid transparent;
+      border-top-color: #b3d9ff;
+    }
+
+    .hint {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #888;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .egg-button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background: #dbefff;
+      border: 1px solid #a0cfff;
+      border-radius: 12px;
+      cursor: pointer;
+      display: none;
+      transition: background 0.3s;
+    }
+
+    .egg-button:hover {
+      background: #c6e4ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="bubble" id="bubble"></div>
+    <div class="hint">点一下继续</div>
+    <button class="egg-button" id="eggButton">🎁 偷偷告诉你一件事…</button>
+    <audio autoplay loop>
+      <source src="your-music.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <script>
+    const texts = [
+      "终于成年啦，从今天开始，\n你是合法大人了，但在我心里，\n你还是那个让我一看到就心跳加速的人。",
+      "其实我偷偷喜欢你已经好久了，\n从你不知道的那一年开始，每次看见你都觉得，\n‘唉，如果他能喜欢我就好了’。",
+      "现在真的在一起了，\n我还是常常有点不敢相信，\n怎么会有人既让我心动，又恰好也喜欢我呀。",
+      "以后也要一直这样喜欢我哦～\n我会努力把喜欢你这件事做得更可爱一点！",
+      "祝你生日快乐，\n也祝我，终于不用再偷偷喜欢你啦 💕"
+    ];
+
+    const eggTexts = [
+      "偷偷喜欢你很久，现在终于可以说出来啦，超幸福的。",
+      "暗恋的时候超怕你发现，现在超怕你不知道我有多喜欢你。",
+      "希望你接下来的每一个生日，都有我在。"
+    ];
+
+    let index = 0;
+    const bubble = document.getElementById("bubble");
+    const eggButton = document.getElementById("eggButton");
+
+    function typeWriter(text, i = 0) {
+      if (i === 0) bubble.innerHTML = "";
+      if (i < text.length) {
+        bubble.innerHTML += text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+        setTimeout(() => typeWriter(text, i + 1), 70);
+      }
+    }
+
+    function showNext() {
+      if (index < texts.length) {
+        typeWriter(texts[index]);
+        index++;
+        if (index === texts.length) {
+          eggButton.style.display = "inline-block";
+        }
+      }
+    }
+
+    document.body.addEventListener("click", showNext);
+
+    eggButton.addEventListener("click", () => {
+      const random = Math.floor(Math.random() * eggTexts.length);
+      alert(eggTexts[random]);
+    });
+  </script>
+</body>
+</html>
