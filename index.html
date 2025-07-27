@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>生日快乐 xmq 🎂</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: '微软雅黑', sans-serif;
+            color: #333;
+            overflow: hidden;
+        }
+        .card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            padding: 2em;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            text-align: center;
+            font-size: 1.2em;
+        }
+        .next-btn, .egg-btn {
+            margin-top: 1em;
+            padding: 0.6em 1.2em;
+            border: none;
+            border-radius: 10px;
+            background-color: #8fbcd4;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        #egg {
+            display: none;
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <audio autoplay loop>
+        <source src="your-music.mp3" type="audio/mpeg" />
+    </audio>
+    <div class="card" id="card">
+        <p id="text">点一下继续</p>
+        <button class="next-btn" onclick="nextText()">▶</button>
+    </div>
+    <button class="egg-btn" id="egg" onclick="showEaster()">🎁 偷偷告诉你一件事…</button>
+    <canvas class="confetti" id="confetti-canvas"></canvas>
+    <script>
+        const texts = [
+            "终于成年啦，从今天开始，\n你是合法大人了，但在我心里，\n你还是那个让我一看到就心跳加速的人。",
+            "其实我偷偷喜欢你已经好久了，\n从你不知道的那一年开始，每次看见你都觉得，\n‘唉，如果他能喜欢我就好了’。",
+            "现在真的在一起了，\n我还是常常有点不敢相信，\n怎么会有人既让我心动，又恰好也喜欢我呀。",
+            "以后也要一直这样喜欢我哦～\n我会努力把喜欢你这件事做得更可爱一点！",
+            "祝你生日快乐，\n也祝我，终于不用再偷偷喜欢你啦 💕"
+        ];
+        let index = 0;
+
+        function nextText() {
+            if (index < texts.length) {
+                document.getElementById("text").innerText = texts[index++];
+                if (index === texts.length) {
+                    document.getElementById("egg").style.display = "block";
+                }
+            }
+        }
+
+        function showEaster() {
+            const eggs = [
+                "偷偷喜欢你很久，现在终于可以说出来啦，超幸福的。",
+                "暗恋的时候超怕你发现，现在超怕你不知道我有多喜欢你。",
+                "希望你接下来的每一个生日，都有我在。"
+            ];
+            const random = eggs[Math.floor(Math.random() * eggs.length)];
+            alert(random);
+        }
+    </script>
+</body>
+</html>
